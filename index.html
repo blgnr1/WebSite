@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kerem Bilginer — iOS Developer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --bg: #09090f;
+        --bg2: #0f0f1a;
+        --bg3: #141420;
+        --text: #f0f0fa;
+        --muted: #7a7a9a;
+        --subtle: #4a4a6a;
+        --accent: #7c5cfc;
+        --accent2: #a78bfa;
+        --accent3: #38bdf8;
+        --border: rgba(120, 100, 255, 0.12);
+        --border2: rgba(255, 255, 255, 0.06);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 48px;
+        background: rgba(9, 9, 15, 0.85);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-name {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: -0.3px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 28px;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      .nav-badge {
+        background: rgba(124, 92, 252, 0.12);
+        border: 1px solid rgba(124, 92, 252, 0.25);
+        border-radius: 100px;
+        padding: 6px 14px;
+        font-size: 12px;
+        color: var(--accent2);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .nav-badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #4ade80;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 120px 48px 80px;
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .hero-left {
+        flex: 1;
+      }
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--accent2);
+        font-weight: 500;
+        margin-bottom: 28px;
+        letter-spacing: 0.3px;
+      }
+      .hero-eyebrow::before {
+        content: "";
+        width: 24px;
+        height: 1px;
+        background: var(--accent2);
+      }
+      h1 {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: clamp(48px, 6vw, 80px);
+        line-height: 1.02;
+        letter-spacing: -2.5px;
+        margin-bottom: 12px;
+      }
+      .hero-role {
+        font-family: "Syne", sans-serif;
+        font-weight: 600;
+        font-size: clamp(20px, 3vw, 32px);
+        background: linear-gradient(135deg, var(--accent2), var(--accent3));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.5px;
+        margin-bottom: 24px;
+      }
+      .hero-desc {
+        color: var(--muted);
+        font-size: 16px;
+        max-width: 480px;
+        line-height: 1.75;
+        font-weight: 300;
+        margin-bottom: 40px;
+      }
+      .hero-links {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .link-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 22px;
+        border-radius: 100px;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: "DM Sans", sans-serif;
+        text-decoration: none;
+        transition:
+          transform 0.2s,
+          opacity 0.2s;
+        border: 1px solid var(--border2);
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .link-btn:hover {
+        transform: translateY(-2px);
+        border-color: rgba(124, 92, 252, 0.3);
+      }
+      .link-btn.primary {
+        background: linear-gradient(135deg, var(--accent), #5b21b6);
+        border-color: transparent;
+        color: #fff;
+        box-shadow: 0 0 30px rgba(124, 92, 252, 0.25);
+      }
+      .link-btn.primary:hover {
+        box-shadow: 0 0 50px rgba(124, 92, 252, 0.4);
+      }
+
+      .hero-avatar {
+        width: 180px;
+        height: 180px;
+        border-radius: 28px;
+        margin-left: 80px;
+        flex-shrink: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(124, 92, 252, 0.2),
+          rgba(56, 189, 248, 0.1)
+        );
+        border: 1px solid rgba(124, 92, 252, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Syne", sans-serif;
+        font-size: 64px;
+        font-weight: 800;
+        color: var(--accent2);
+        letter-spacing: -2px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-avatar::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(124, 92, 252, 0.15),
+          transparent 60%
+        );
+      }
+
+      .divider {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border2),
+          transparent
+        );
+        margin: 0 48px;
+      }
+
+      .about {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 80px 48px;
+      }
+      .section-eyebrow {
+        font-size: 12px;
+        letter-spacing: 3px;
+        color: var(--accent2);
+        text-transform: uppercase;
+        font-weight: 500;
+        margin-bottom: 16px;
+      }
+      .section-title {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: clamp(28px, 4vw, 44px);
+        letter-spacing: -1.5px;
+        margin-bottom: 24px;
+        line-height: 1.1;
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-top: 48px;
+      }
+      .info-block {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border2);
+        border-radius: 20px;
+        padding: 28px;
+      }
+      .info-label {
+        font-size: 11px;
+        letter-spacing: 2px;
+        color: var(--subtle);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .info-value {
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--text);
+      }
+      .info-value a {
+        color: var(--accent2);
+        text-decoration: none;
+      }
+      .info-value a:hover {
+        text-decoration: underline;
+      }
+
+      .skills-wrap {
+        margin-top: 48px;
+      }
+      .skills-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .skill-tag {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border2);
+        border-radius: 100px;
+        padding: 8px 18px;
+        font-size: 13px;
+        color: var(--text);
+        font-weight: 400;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .skill-tag:hover {
+        border-color: rgba(124, 92, 252, 0.4);
+        color: var(--accent2);
+      }
+      .skill-tag.highlight {
+        background: rgba(124, 92, 252, 0.1);
+        border-color: rgba(124, 92, 252, 0.25);
+        color: var(--accent2);
+      }
+
+      .apps {
+        background: var(--bg2);
+        padding: 80px 48px;
+      }
+      .apps-inner {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .app-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border2);
+        border-radius: 24px;
+        padding: 40px;
+        margin-top: 32px;
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 32px;
+        align-items: start;
+        transition: border-color 0.2s;
+      }
+      .app-card:hover {
+        border-color: rgba(124, 92, 252, 0.3);
+      }
+      .app-icon-wrap {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #1a0f3a, #0f1a2e);
+        border: 1px solid rgba(124, 92, 252, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        flex-shrink: 0;
+      }
+      .app-name {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 24px;
+        letter-spacing: -0.5px;
+        margin-bottom: 6px;
+      }
+      .app-tagline {
+        color: var(--accent2);
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 16px;
+      }
+      .app-desc {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.7;
+        font-weight: 300;
+        margin-bottom: 24px;
+        max-width: 560px;
+      }
+      .app-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 24px;
+      }
+      .app-tag {
+        background: rgba(56, 189, 248, 0.08);
+        border: 1px solid rgba(56, 189, 248, 0.15);
+        border-radius: 100px;
+        padding: 4px 14px;
+        font-size: 12px;
+        color: #7dd3fc;
+      }
+      .app-stats {
+        display: flex;
+        gap: 24px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border2);
+      }
+      .app-stat-val {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--accent2);
+      }
+      .app-stat-lbl {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(74, 222, 128, 0.08);
+        border: 1px solid rgba(74, 222, 128, 0.2);
+        border-radius: 100px;
+        padding: 5px 14px;
+        font-size: 12px;
+        color: #4ade80;
+        font-weight: 500;
+        margin-bottom: 16px;
+      }
+      .status-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #4ade80;
+        animation: pulse 2s infinite;
+      }
+
+      .contact {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 80px 48px;
+        text-align: center;
+      }
+      .contact-title {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: clamp(32px, 5vw, 56px);
+        letter-spacing: -2px;
+        margin-bottom: 16px;
+        line-height: 1.05;
+      }
+      .contact-sub {
+        color: var(--muted);
+        font-size: 17px;
+        margin-bottom: 48px;
+        font-weight: 300;
+      }
+      .contact-links {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .contact-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border2);
+        border-radius: 20px;
+        padding: 28px 32px;
+        text-align: left;
+        text-decoration: none;
+        color: var(--text);
+        min-width: 220px;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .contact-card:hover {
+        border-color: rgba(124, 92, 252, 0.4);
+        transform: translateY(-3px);
+      }
+      .contact-card-icon {
+        font-size: 24px;
+        margin-bottom: 12px;
+      }
+      .contact-card-label {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 4px;
+        letter-spacing: 0.5px;
+      }
+      .contact-card-value {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--accent2);
+      }
+
+      footer {
+        padding: 32px 48px;
+        border-top: 1px solid var(--border2);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 13px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      @media (max-width: 640px) {
+        nav {
+          padding: 16px 24px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .hero {
+          flex-direction: column;
+          padding: 100px 24px 60px;
+        }
+        .hero-avatar {
+          margin-left: 0;
+          margin-top: 40px;
+          width: 120px;
+          height: 120px;
+          font-size: 42px;
+        }
+        .about,
+        .contact {
+          padding: 60px 24px;
+        }
+        .apps {
+          padding: 60px 24px;
+        }
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+        .app-card {
+          grid-template-columns: 1fr;
+        }
+        .divider {
+          margin: 0 24px;
+        }
+        footer {
+          padding: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-name">Kerem Bilginer</div>
+      <div class="nav-links">
+        <a href="#hakkimda">Hakkımda</a>
+        <a href="#uygulamalar">Uygulamalar</a>
+        <a href="#iletisim">İletişim</a>
+      </div>
+      <div class="nav-badge">
+        <span class="nav-badge-dot"></span>
+        iOS Developer
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-eyebrow">Istanbul, Turkey</div>
+        <h1>Kerem<br />Bilginer</h1>
+        <div class="hero-role">iOS & Flutter Developer</div>
+        <p class="hero-desc">
+          Independent mobile developer building consumer apps for iOS. Focused
+          on data-driven experiences, clean architecture, and products people
+          actually want to use.
+        </p>
+        <div class="hero-links">
+          <a href="https://github.com/blgnr1" target="_blank" class="link-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"
+              />
+            </svg>
+            GitHub
+          </a>
+          <a href="mailto:kerem1096@outlook.com" class="link-btn primary">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              />
+              <polyline points="22,6 12,12 2,6" />
+            </svg>
+            İletişim
+          </a>
+        </div>
+      </div>
+      <div class="hero-avatar">KB</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <section class="about" id="hakkimda">
+      <div class="section-eyebrow">Hakkımda</div>
+      <h2 class="section-title">Developer & Builder</h2>
+      <p
+        style="
+          color: var(--muted);
+          font-size: 16px;
+          max-width: 600px;
+          line-height: 1.75;
+          font-weight: 300;
+        "
+      >
+        Istanbul based independent iOS developer. I design and build mobile
+        applications end-to-end — from architecture and algorithms to UI and App
+        Store distribution. Currently focused on consumer apps that combine
+        behavioral analysis with engaging, shareable experiences.
+      </p>
+
+      <div class="about-grid">
+        <div class="info-block">
+          <div class="info-label">Konum</div>
+          <div class="info-value">Istanbul, Turkey 🇹🇷</div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">E-posta</div>
+          <div class="info-value">
+            <a href="mailto:kerem1096@outlook.com">kerem1096@outlook.com</a>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">GitHub</div>
+          <div class="info-value">
+            <a href="https://github.com/blgnr1" target="_blank"
+              >github.com/blgnr1</a
+            >
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">Durum</div>
+          <div
+            class="info-value"
+            style="display: flex; align-items: center; gap: 8px"
+          >
+            <span
+              style="
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #4ade80;
+                display: inline-block;
+              "
+            ></span>
+            Open to collaborations
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-wrap">
+        <div class="section-eyebrow" style="margin-top: 0">Teknolojiler</div>
+        <div class="skills-grid">
+          <span class="skill-tag highlight">Flutter</span>
+          <span class="skill-tag highlight">Dart</span>
+          <span class="skill-tag highlight">iOS / Swift</span>
+          <span class="skill-tag">Riverpod</span>
+          <span class="skill-tag">StoreKit / RevenueCat</span>
+          <span class="skill-tag">SQLite</span>
+          <span class="skill-tag">App Store Connect</span>
+          <span class="skill-tag">Data Analysis</span>
+          <span class="skill-tag">NLP / Text Processing</span>
+          <span class="skill-tag">Algorithm Design</span>
+          <span class="skill-tag">UI / UX</span>
+          <span class="skill-tag">Python</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="apps" id="uygulamalar">
+      <div class="apps-inner">
+        <div class="section-eyebrow">Uygulamalar</div>
+        <h2 class="section-title">Yayınlanan İşler</h2>
+
+        <div class="app-card">
+          <div class="app-icon-wrap">💬</div>
+          <div>
+            <div class="status-badge">
+              <span class="status-dot"></span> App Store'da
+            </div>
+            <div class="app-name">ScrollChat</div>
+            <div class="app-tagline">
+              WhatsApp Chat Analysis & Persona Engine
+            </div>
+            <p class="app-desc">
+              ScrollChat analyzes WhatsApp chat exports entirely on-device and
+              generates personality profiles, behavioral insights, and
+              relationship badges for every participant. Built with a custom NLP
+              pipeline, a KNN-based persona classification engine, and a
+              token-based monetization model. All processing happens locally —
+              no data ever leaves the device.
+            </p>
+            <div class="app-tags">
+              <span class="app-tag">Flutter</span>
+              <span class="app-tag">Dart Isolates</span>
+              <span class="app-tag">On-device NLP</span>
+              <span class="app-tag">StoreKit</span>
+              <span class="app-tag">Riverpod</span>
+              <span class="app-tag">SQLite</span>
+            </div>
+            <div class="app-stats">
+              <div>
+                <div class="app-stat-val">25+</div>
+                <div class="app-stat-lbl">Persona Types</div>
+              </div>
+              <div>
+                <div class="app-stat-val">110K</div>
+                <div class="app-stat-lbl">Messages / 33s</div>
+              </div>
+              <div>
+                <div class="app-stat-val">6</div>
+                <div class="app-stat-lbl">Languages</div>
+              </div>
+              <div>
+                <div class="app-stat-val">100%</div>
+                <div class="app-stat-lbl">On-device</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="contact" id="iletisim">
+      <h2 class="contact-title">İletişime Geç</h2>
+      <p class="contact-sub">Proje, iş birliği veya herhangi bir konu için.</p>
+      <div class="contact-links">
+        <a href="mailto:kerem1096@outlook.com" class="contact-card">
+          <div class="contact-card-icon">✉️</div>
+          <div class="contact-card-label">E-posta</div>
+          <div class="contact-card-value">kerem1096@outlook.com</div>
+        </a>
+        <a
+          href="https://github.com/blgnr1"
+          target="_blank"
+          class="contact-card"
+        >
+          <div class="contact-card-icon">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="var(--accent2)"
+            >
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"
+              />
+            </svg>
+          </div>
+          <div class="contact-card-label">GitHub</div>
+          <div class="contact-card-value">github.com/blgnr1</div>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <span>Kerem Bilginer — Istanbul, Turkey</span>
+      <span>iOS & Flutter Developer</span>
+      <span style="color: var(--subtle)">kerem1096@outlook.com</span>
+    </footer>
+  </body>
+</html>
