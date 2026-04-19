@@ -1,14 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="tr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kerem Bilginer — Software Engineer & Developer</title>
+    <meta name="description" content="Kerem Bilginer — Yazılım Mühendisi, AI & Mobile Geliştirici. Flutter, Python, makine öğrenimi ve mobil uygulama geliştirme alanlarında projeler." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
+      /* ===== RESET & BASE ===== */
       *,
       *::before,
       *::after {
@@ -16,833 +20,2315 @@
         margin: 0;
         padding: 0;
       }
+
       :root {
-        --bg: #09090f;
-        --bg2: #0f0f1a;
-        --bg3: #141420;
-        --text: #f0f0fa;
-        --muted: #7a7a9a;
-        --subtle: #4a4a6a;
-        --accent: #7c5cfc;
-        --accent2: #a78bfa;
-        --accent3: #38bdf8;
-        --border: rgba(120, 100, 255, 0.12);
-        --border2: rgba(255, 255, 255, 0.06);
+        --bg-primary: #0a0a0f;
+        --bg-secondary: #0e0e18;
+        --bg-tertiary: #131322;
+        --bg-card: rgba(255, 255, 255, 0.025);
+        --bg-card-hover: rgba(255, 255, 255, 0.045);
+        --text-primary: #f0f0f8;
+        --text-secondary: #a0a0c0;
+        --text-muted: #5a5a80;
+        --accent-violet: #8b5cf6;
+        --accent-violet-light: #a78bfa;
+        --accent-blue: #38bdf8;
+        --accent-emerald: #34d399;
+        --accent-amber: #fbbf24;
+        --gradient-primary: linear-gradient(135deg, #8b5cf6, #6366f1, #38bdf8);
+        --gradient-card: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(56, 189, 248, 0.04));
+        --border-subtle: rgba(255, 255, 255, 0.06);
+        --border-accent: rgba(139, 92, 246, 0.2);
+        --shadow-glow: 0 0 60px rgba(139, 92, 246, 0.15);
+        --radius-sm: 12px;
+        --radius-md: 16px;
+        --radius-lg: 24px;
+        --radius-xl: 32px;
+        --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
+
       html {
         scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
+
       body {
-        font-family: "DM Sans", sans-serif;
-        background: var(--bg);
-        color: var(--text);
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
         line-height: 1.6;
         overflow-x: hidden;
       }
 
+      /* ===== ANIMATED BACKGROUND ===== */
+      .bg-noise {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.03;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
+      .bg-gradient-orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(120px);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .bg-gradient-orb.orb-1 {
+        width: 600px;
+        height: 600px;
+        top: -200px;
+        right: -100px;
+        background: radial-gradient(circle, rgba(139, 92, 246, 0.12), transparent 70%);
+        animation: orbFloat1 20s ease-in-out infinite;
+      }
+
+      .bg-gradient-orb.orb-2 {
+        width: 500px;
+        height: 500px;
+        bottom: -100px;
+        left: -150px;
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.08), transparent 70%);
+        animation: orbFloat2 25s ease-in-out infinite;
+      }
+
+      @keyframes orbFloat1 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(-40px, 60px) scale(1.1); }
+        66% { transform: translate(30px, -30px) scale(0.95); }
+      }
+
+      @keyframes orbFloat2 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(50px, -40px) scale(1.05); }
+      }
+
+      /* ===== NAVIGATION ===== */
       nav {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        z-index: 100;
+        z-index: 1000;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 16px 48px;
-        background: rgba(9, 9, 15, 0.85);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border);
-      }
-      .nav-name {
-        font-family: "Syne", sans-serif;
-        font-weight: 700;
-        font-size: 16px;
-        letter-spacing: -0.3px;
-      }
-      .nav-links {
-        display: flex;
-        gap: 28px;
-      }
-      .nav-links a {
-        color: var(--muted);
-        text-decoration: none;
-        font-size: 14px;
-        transition: color 0.2s;
-      }
-      .nav-links a:hover {
-        color: var(--text);
-      }
-      .nav-badge {
-        background: rgba(124, 92, 252, 0.12);
-        border: 1px solid rgba(124, 92, 252, 0.25);
-        border-radius: 100px;
-        padding: 6px 14px;
-        font-size: 12px;
-        color: var(--accent2);
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-      .nav-badge-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: #4ade80;
-        animation: pulse 2s infinite;
-      }
-      @keyframes pulse {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.3;
-        }
+        padding: 0 48px;
+        height: 72px;
+        background: rgba(10, 10, 15, 0.7);
+        backdrop-filter: blur(24px) saturate(1.2);
+        -webkit-backdrop-filter: blur(24px) saturate(1.2);
+        border-bottom: 1px solid var(--border-subtle);
+        transition: background var(--transition-fast);
       }
 
+      nav.scrolled {
+        background: rgba(10, 10, 15, 0.92);
+      }
+
+      .nav-logo {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: -0.5px;
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: opacity var(--transition-fast);
+      }
+
+      .nav-logo:hover {
+        opacity: 0.8;
+      }
+
+      .nav-logo span {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .nav-links a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 8px 16px;
+        border-radius: 100px;
+        transition: all var(--transition-fast);
+        position: relative;
+      }
+
+      .nav-links a:hover {
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .nav-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(139, 92, 246, 0.08);
+        border: 1px solid rgba(139, 92, 246, 0.18);
+        border-radius: 100px;
+        padding: 6px 16px 6px 12px;
+        font-size: 13px;
+        color: var(--accent-violet-light);
+        font-weight: 500;
+      }
+
+      .nav-status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent-emerald);
+        box-shadow: 0 0 8px rgba(52, 211, 153, 0.5);
+        animation: statusPulse 2.5s ease-in-out infinite;
+      }
+
+      @keyframes statusPulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(0.85); }
+      }
+
+      /* Mobile hamburger */
+      .nav-hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 8px;
+        border: none;
+        background: none;
+        z-index: 1001;
+      }
+
+      .nav-hamburger span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: var(--text-primary);
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .nav-hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .nav-hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      /* ===== HERO SECTION ===== */
       .hero {
         min-height: 100vh;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         padding: 120px 48px 80px;
-        max-width: 1000px;
+        max-width: 1100px;
         margin: 0 auto;
         position: relative;
+        z-index: 1;
+        gap: 60px;
       }
-      .hero-left {
+
+      .hero-content {
         flex: 1;
+        max-width: 600px;
       }
-      .hero-eyebrow {
+
+      .hero-badge {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
+        padding: 8px 18px 8px 14px;
+        background: rgba(139, 92, 246, 0.06);
+        border: 1px solid rgba(139, 92, 246, 0.15);
+        border-radius: 100px;
         font-size: 13px;
-        color: var(--accent2);
+        color: var(--accent-violet-light);
         font-weight: 500;
-        margin-bottom: 28px;
-        letter-spacing: 0.3px;
+        margin-bottom: 32px;
+        animation: fadeSlideUp 0.8s ease-out;
       }
-      .hero-eyebrow::before {
-        content: "";
-        width: 24px;
-        height: 1px;
-        background: var(--accent2);
+
+      .hero-badge svg {
+        opacity: 0.7;
       }
-      h1 {
-        font-family: "Syne", sans-serif;
-        font-weight: 800;
-        font-size: clamp(48px, 6vw, 80px);
-        line-height: 1.02;
-        letter-spacing: -2.5px;
-        margin-bottom: 12px;
+
+      .hero-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: clamp(44px, 5.5vw, 72px);
+        line-height: 1.05;
+        letter-spacing: -2px;
+        margin-bottom: 8px;
+        animation: fadeSlideUp 0.8s ease-out 0.1s both;
       }
-      .hero-role {
-        font-family: "Syne", sans-serif;
-        font-weight: 600;
-        font-size: clamp(20px, 3vw, 32px);
-        background: linear-gradient(135deg, var(--accent2), var(--accent3));
+
+      .hero-title .gradient-text {
+        background: var(--gradient-primary);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-subtitle {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: clamp(20px, 2.5vw, 28px);
+        color: var(--text-secondary);
         letter-spacing: -0.5px;
         margin-bottom: 24px;
+        animation: fadeSlideUp 0.8s ease-out 0.2s both;
       }
-      .hero-desc {
-        color: var(--muted);
+
+      .hero-description {
+        color: var(--text-secondary);
         font-size: 16px;
-        max-width: 480px;
-        line-height: 1.75;
-        font-weight: 300;
+        line-height: 1.8;
+        font-weight: 400;
+        max-width: 500px;
         margin-bottom: 40px;
+        animation: fadeSlideUp 0.8s ease-out 0.3s both;
       }
-      .hero-links {
+
+      .hero-cta {
         display: flex;
         gap: 14px;
         flex-wrap: wrap;
-      }
-      .link-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 12px 22px;
-        border-radius: 100px;
-        font-size: 14px;
-        font-weight: 500;
-        font-family: "DM Sans", sans-serif;
-        text-decoration: none;
-        transition:
-          transform 0.2s,
-          opacity 0.2s;
-        border: 1px solid var(--border2);
-        color: var(--text);
-        background: rgba(255, 255, 255, 0.04);
-      }
-      .link-btn:hover {
-        transform: translateY(-2px);
-        border-color: rgba(124, 92, 252, 0.3);
-      }
-      .link-btn.primary {
-        background: linear-gradient(135deg, var(--accent), #5b21b6);
-        border-color: transparent;
-        color: #fff;
-        box-shadow: 0 0 30px rgba(124, 92, 252, 0.25);
-      }
-      .link-btn.primary:hover {
-        box-shadow: 0 0 50px rgba(124, 92, 252, 0.4);
+        animation: fadeSlideUp 0.8s ease-out 0.4s both;
       }
 
-      .hero-avatar {
-        width: 180px;
-        height: 180px;
-        border-radius: 28px;
-        margin-left: 80px;
-        flex-shrink: 0;
-        background: linear-gradient(
-          135deg,
-          rgba(124, 92, 252, 0.2),
-          rgba(56, 189, 248, 0.1)
-        );
-        border: 1px solid rgba(124, 92, 252, 0.2);
-        display: flex;
+      .btn {
+        display: inline-flex;
         align-items: center;
-        justify-content: center;
-        font-family: "Syne", sans-serif;
-        font-size: 64px;
-        font-weight: 800;
-        color: var(--accent2);
-        letter-spacing: -2px;
+        gap: 10px;
+        padding: 14px 28px;
+        border-radius: 100px;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: "Inter", sans-serif;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all var(--transition-fast);
         position: relative;
         overflow: hidden;
       }
-      .hero-avatar::after {
+
+      .btn-primary {
+        background: var(--gradient-primary);
+        color: #fff;
+        box-shadow: 0 4px 24px rgba(139, 92, 246, 0.3);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 40px rgba(139, 92, 246, 0.45);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text-primary);
+        border: 1px solid var(--border-subtle);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: var(--border-accent);
+        transform: translateY(-2px);
+      }
+
+      /* Profile photo */
+      .hero-photo-wrapper {
+        flex-shrink: 0;
+        position: relative;
+        animation: fadeSlideUp 0.8s ease-out 0.3s both;
+      }
+
+      .hero-photo {
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center top;
+        border: 3px solid rgba(139, 92, 246, 0.25);
+        box-shadow:
+          0 0 0 8px rgba(139, 92, 246, 0.06),
+          0 20px 60px rgba(0, 0, 0, 0.4),
+          0 0 80px rgba(139, 92, 246, 0.12);
+        transition: all var(--transition-smooth);
+      }
+
+      .hero-photo:hover {
+        border-color: rgba(139, 92, 246, 0.45);
+        box-shadow:
+          0 0 0 10px rgba(139, 92, 246, 0.1),
+          0 24px 70px rgba(0, 0, 0, 0.5),
+          0 0 100px rgba(139, 92, 246, 0.18);
+        transform: scale(1.03);
+      }
+
+      .hero-photo-ring {
+        position: absolute;
+        inset: -12px;
+        border-radius: 50%;
+        border: 1px solid rgba(139, 92, 246, 0.1);
+        animation: ringRotate 20s linear infinite;
+      }
+
+      .hero-photo-ring::before {
         content: "";
         position: absolute;
-        inset: 0;
-        background: radial-gradient(
-          circle at 30% 30%,
-          rgba(124, 92, 252, 0.15),
-          transparent 60%
-        );
+        top: -3px;
+        left: 50%;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent-violet);
+        box-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
       }
 
-      .divider {
+      @keyframes ringRotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ===== DIVIDER ===== */
+      .section-divider {
         height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--border2),
-          transparent
-        );
-        margin: 0 48px;
+        background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+        max-width: 1100px;
+        margin: 0 auto;
       }
 
-      .about {
-        max-width: 1000px;
+      /* ===== SECTION COMMON ===== */
+      .section {
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 80px 48px;
+        padding: 100px 48px;
+        position: relative;
+        z-index: 1;
       }
-      .section-eyebrow {
+
+      .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
         font-size: 12px;
         letter-spacing: 3px;
-        color: var(--accent2);
+        color: var(--accent-violet-light);
         text-transform: uppercase;
-        font-weight: 500;
+        font-weight: 600;
         margin-bottom: 16px;
       }
-      .section-title {
-        font-family: "Syne", sans-serif;
-        font-weight: 800;
-        font-size: clamp(28px, 4vw, 44px);
-        letter-spacing: -1.5px;
-        margin-bottom: 24px;
-        line-height: 1.1;
-      }
-      .about-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-        margin-top: 48px;
-      }
-      .info-block {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid var(--border2);
-        border-radius: 20px;
-        padding: 28px;
-      }
-      .info-label {
-        font-size: 11px;
-        letter-spacing: 2px;
-        color: var(--subtle);
-        text-transform: uppercase;
-        margin-bottom: 8px;
-      }
-      .info-value {
-        font-size: 16px;
-        font-weight: 500;
-        color: var(--text);
-      }
-      .info-value a {
-        color: var(--accent2);
-        text-decoration: none;
-      }
-      .info-value a:hover {
-        text-decoration: underline;
+
+      .section-label::before {
+        content: "";
+        width: 20px;
+        height: 2px;
+        background: var(--accent-violet);
+        border-radius: 2px;
       }
 
-      .skills-wrap {
+      .section-heading {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: clamp(28px, 4vw, 44px);
+        letter-spacing: -1.5px;
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+
+      .section-description {
+        color: var(--text-secondary);
+        font-size: 16px;
+        max-width: 600px;
+        line-height: 1.8;
+        font-weight: 400;
+      }
+
+      /* ===== ABOUT SECTION ===== */
+      .about-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
         margin-top: 48px;
       }
+
+      .info-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        padding: 24px 28px;
+        transition: all var(--transition-fast);
+      }
+
+      .info-card:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--border-accent);
+        transform: translateY(-2px);
+      }
+
+      .info-card-label {
+        font-size: 11px;
+        letter-spacing: 2px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .info-card-value {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text-primary);
+      }
+
+      .info-card-value a {
+        color: var(--accent-violet-light);
+        text-decoration: none;
+        transition: color var(--transition-fast);
+      }
+
+      .info-card-value a:hover {
+        color: var(--accent-blue);
+      }
+
+      .info-card-value .status-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .info-card-value .status-dot-inline {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent-emerald);
+        box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+        animation: statusPulse 2.5s ease-in-out infinite;
+      }
+
+      /* ===== SKILLS ===== */
+      .skills-section {
+        margin-top: 56px;
+      }
+
       .skills-grid {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
         margin-top: 20px;
       }
-      .skill-tag {
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid var(--border2);
+
+      .skill-chip {
+        padding: 9px 20px;
         border-radius: 100px;
-        padding: 8px 18px;
         font-size: 13px;
-        color: var(--text);
-        font-weight: 400;
-        transition:
-          border-color 0.2s,
-          color 0.2s;
-      }
-      .skill-tag:hover {
-        border-color: rgba(124, 92, 252, 0.4);
-        color: var(--accent2);
-      }
-      .skill-tag.highlight {
-        background: rgba(124, 92, 252, 0.1);
-        border-color: rgba(124, 92, 252, 0.25);
-        color: var(--accent2);
-      }
-      .skill-tag.ai {
-        background: rgba(56, 189, 248, 0.1);
-        border-color: rgba(56, 189, 248, 0.25);
-        color: #7dd3fc;
+        font-weight: 500;
+        border: 1px solid var(--border-subtle);
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--text-primary);
+        transition: all var(--transition-fast);
+        cursor: default;
       }
 
-      .apps {
-        background: var(--bg2);
-        padding: 80px 48px;
+      .skill-chip:hover {
+        border-color: var(--border-accent);
+        background: rgba(139, 92, 246, 0.06);
+        transform: translateY(-2px);
       }
-      .apps-inner {
-        max-width: 1000px;
+
+      .skill-chip.primary {
+        background: rgba(139, 92, 246, 0.08);
+        border-color: rgba(139, 92, 246, 0.2);
+        color: var(--accent-violet-light);
+      }
+
+      .skill-chip.ai {
+        background: rgba(56, 189, 248, 0.06);
+        border-color: rgba(56, 189, 248, 0.18);
+        color: var(--accent-blue);
+      }
+
+      /* ===== PROJECTS SECTION ===== */
+      .projects-section {
+        background: var(--bg-secondary);
+        border-top: 1px solid var(--border-subtle);
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .projects-inner {
+        max-width: 1100px;
         margin: 0 auto;
+        padding: 100px 48px;
       }
-      .app-card {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid var(--border2);
-        border-radius: 24px;
-        padding: 40px;
-        margin-top: 32px;
+
+      .projects-grid {
         display: grid;
-        grid-template-columns: 80px 1fr;
-        gap: 32px;
-        align-items: start;
-        transition: border-color 0.2s;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        margin-top: 48px;
       }
-      .app-card:hover {
-        border-color: rgba(124, 92, 252, 0.3);
+
+      .project-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 36px;
+        cursor: pointer;
+        transition: all var(--transition-smooth);
+        position: relative;
+        overflow: hidden;
       }
-      .app-icon-wrap {
-        width: 80px;
-        height: 80px;
-        border-radius: 20px;
-        background: linear-gradient(135deg, #1a0f3a, #0f1a2e);
-        border: 1px solid rgba(124, 92, 252, 0.2);
+
+      .project-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--gradient-card);
+        opacity: 0;
+        transition: opacity var(--transition-smooth);
+      }
+
+      .project-card:hover {
+        border-color: var(--border-accent);
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-glow);
+      }
+
+      .project-card:hover::before {
+        opacity: 1;
+      }
+
+      .project-card > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .project-card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .project-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 36px;
+        font-size: 28px;
         flex-shrink: 0;
       }
-      .app-name {
-        font-family: "Syne", sans-serif;
-        font-weight: 800;
+
+      .project-icon.fruitrack {
+        background: linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(16, 185, 129, 0.06));
+        border: 1px solid rgba(52, 211, 153, 0.2);
+      }
+
+      .project-icon.scrollchat {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(99, 102, 241, 0.06));
+        border: 1px solid rgba(139, 92, 246, 0.2);
+      }
+
+      .project-icon.ownword {
+        background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(59, 130, 246, 0.06));
+        border: 1px solid rgba(56, 189, 248, 0.2);
+      }
+
+      .project-icon.fifoll {
+        background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.06));
+        border: 1px solid rgba(251, 191, 36, 0.2);
+      }
+
+      .project-icon.fruitai {
+        background: linear-gradient(135deg, rgba(248, 113, 113, 0.15), rgba(239, 68, 68, 0.06));
+        border: 1px solid rgba(248, 113, 113, 0.2);
+      }
+
+      .project-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 14px;
+        border-radius: 100px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+
+      .project-status.wip {
+        background: rgba(251, 191, 36, 0.08);
+        border: 1px solid rgba(251, 191, 36, 0.2);
+        color: var(--accent-amber);
+      }
+
+      .project-status.wip .dot {
+        background: var(--accent-amber);
+      }
+
+      .project-status.completed {
+        background: rgba(52, 211, 153, 0.08);
+        border: 1px solid rgba(52, 211, 153, 0.2);
+        color: var(--accent-emerald);
+      }
+
+      .project-status.completed .dot {
+        background: var(--accent-emerald);
+      }
+
+      .project-status .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        animation: statusPulse 2.5s ease-in-out infinite;
+      }
+
+      /* Featured card (full-width, for ScrollChat) */
+      .project-card.featured {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 40px;
+        padding: 40px 44px;
+        border-color: rgba(139, 92, 246, 0.12);
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.03), rgba(56, 189, 248, 0.015));
+      }
+
+      .project-card.featured .project-card-header {
+        grid-column: 1 / -1;
+      }
+
+      .project-card.featured .project-card-left {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .project-card.featured .project-card-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 16px;
+      }
+
+      .project-card.featured .project-card-footer {
+        grid-column: 1 / -1;
+      }
+
+      .featured-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--accent-violet-light);
+        margin-bottom: 16px;
+      }
+
+      .featured-label svg {
+        opacity: 0.8;
+      }
+
+      .project-stat-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .project-stat-item {
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-sm);
+        padding: 16px 18px;
+        transition: all var(--transition-fast);
+      }
+
+      .project-stat-item:hover {
+        border-color: var(--border-accent);
+        background: rgba(139, 92, 246, 0.03);
+      }
+
+      .project-stat-value {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 22px;
+        color: var(--accent-violet-light);
+        margin-bottom: 2px;
+      }
+
+      .project-stat-label {
+        font-size: 12px;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      /* Modal stats */
+      .modal-stat-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+
+      .modal-stat {
+        text-align: center;
+        padding: 18px 12px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-sm);
+      }
+
+      .modal-stat-value {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 24px;
+        color: var(--accent-violet-light);
+        margin-bottom: 4px;
+      }
+
+      .modal-stat-label {
+        font-size: 12px;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      .modal-status-bar.completed {
+        background: rgba(52, 211, 153, 0.04);
+        border-color: rgba(52, 211, 153, 0.12);
+      }
+
+      .modal-status-bar.completed .dot {
+        background: var(--accent-emerald);
+      }
+
+      .modal-status-bar.completed span:last-child {
+        color: var(--accent-emerald);
+      }
+
+      .project-card-name {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
         font-size: 24px;
         letter-spacing: -0.5px;
         margin-bottom: 6px;
       }
-      .app-tagline {
-        color: var(--accent2);
+
+      .project-card-tagline {
+        color: var(--accent-violet-light);
         font-size: 14px;
         font-weight: 500;
         margin-bottom: 16px;
       }
-      .app-desc {
-        color: var(--muted);
-        font-size: 15px;
+
+      .project-card-desc {
+        color: var(--text-secondary);
+        font-size: 14px;
         line-height: 1.7;
-        font-weight: 300;
+        font-weight: 400;
         margin-bottom: 24px;
-        max-width: 560px;
       }
-      .app-tags {
+
+      .project-card-tags {
         display: flex;
         gap: 8px;
         flex-wrap: wrap;
         margin-bottom: 24px;
       }
-      .app-tag {
-        background: rgba(56, 189, 248, 0.08);
-        border: 1px solid rgba(56, 189, 248, 0.15);
+
+      .project-tag {
+        background: rgba(56, 189, 248, 0.06);
+        border: 1px solid rgba(56, 189, 248, 0.12);
         border-radius: 100px;
         padding: 4px 14px;
         font-size: 12px;
-        color: #7dd3fc;
-      }
-      .app-stats {
-        display: flex;
-        gap: 24px;
-        padding-top: 24px;
-        border-top: 1px solid var(--border2);
-      }
-      .app-stat-val {
-        font-family: "Syne", sans-serif;
-        font-weight: 700;
-        font-size: 20px;
-        color: var(--accent2);
-      }
-      .app-stat-lbl {
-        font-size: 11px;
-        color: var(--muted);
-        margin-top: 2px;
-      }
-      .status-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: rgba(74, 222, 128, 0.08);
-        border: 1px solid rgba(74, 222, 128, 0.2);
-        border-radius: 100px;
-        padding: 5px 14px;
-        font-size: 12px;
-        color: #4ade80;
+        color: var(--accent-blue);
         font-weight: 500;
-        margin-bottom: 16px;
-      }
-      .status-dot {
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: #4ade80;
-        animation: pulse 2s infinite;
-      }
-      .status-badge.dev {
-        background: rgba(250, 204, 21, 0.08);
-        border: 1px solid rgba(250, 204, 21, 0.2);
-        color: #facc15;
-      }
-      .status-badge.dev .status-dot {
-        background: #facc15;
       }
 
-      .contact {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 80px 48px;
-        text-align: center;
-      }
-      .contact-title {
-        font-family: "Syne", sans-serif;
-        font-weight: 800;
-        font-size: clamp(32px, 5vw, 56px);
-        letter-spacing: -2px;
-        margin-bottom: 16px;
-        line-height: 1.05;
-      }
-      .contact-sub {
-        color: var(--muted);
-        font-size: 17px;
-        margin-bottom: 48px;
-        font-weight: 300;
-      }
-      .contact-links {
-        display: flex;
-        gap: 16px;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-      .contact-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid var(--border2);
-        border-radius: 20px;
-        padding: 28px 32px;
-        text-align: left;
-        text-decoration: none;
-        color: var(--text);
-        min-width: 220px;
-        transition:
-          border-color 0.2s,
-          transform 0.2s;
-      }
-      .contact-card:hover {
-        border-color: rgba(124, 92, 252, 0.4);
-        transform: translateY(-3px);
-      }
-      .contact-card-icon {
-        font-size: 24px;
-        margin-bottom: 12px;
-      }
-      .contact-card-label {
-        font-size: 12px;
-        color: var(--muted);
-        margin-bottom: 4px;
-        letter-spacing: 0.5px;
-      }
-      .contact-card-value {
-        font-size: 15px;
-        font-weight: 500;
-        color: var(--accent2);
-      }
-
-      footer {
-        padding: 32px 48px;
-        border-top: 1px solid var(--border2);
+      .project-card-footer {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        color: var(--muted);
+        padding-top: 20px;
+        border-top: 1px solid var(--border-subtle);
+      }
+
+      .project-card-cta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         font-size: 13px;
-        flex-wrap: wrap;
+        font-weight: 600;
+        color: var(--accent-violet-light);
+        transition: gap var(--transition-fast);
+      }
+
+      .project-card:hover .project-card-cta {
         gap: 12px;
       }
 
-      @media (max-width: 640px) {
+      .project-card-cta svg {
+        transition: transform var(--transition-fast);
+      }
+
+      .project-card:hover .project-card-cta svg {
+        transform: translateX(4px);
+      }
+
+      /* ===== PROJECT MODAL ===== */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.35s ease;
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal {
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-xl);
+        max-width: 640px;
+        width: 100%;
+        max-height: 85vh;
+        overflow-y: auto;
+        position: relative;
+        transform: scale(0.92) translateY(20px);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        box-shadow:
+          0 40px 100px rgba(0, 0, 0, 0.5),
+          0 0 80px rgba(139, 92, 246, 0.08);
+      }
+
+      .modal-overlay.active .modal {
+        transform: scale(1) translateY(0);
+      }
+
+      .modal::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .modal::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .modal::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+      }
+
+      .modal-header {
+        padding: 36px 40px 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        background: var(--bg-tertiary);
+        z-index: 1;
+        padding-bottom: 20px;
+      }
+
+      .modal-header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .modal-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        flex-shrink: 0;
+      }
+
+      .modal-header-info h3 {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 24px;
+        letter-spacing: -0.5px;
+        margin-bottom: 4px;
+      }
+
+      .modal-header-info .modal-tagline {
+        font-size: 14px;
+        color: var(--accent-violet-light);
+        font-weight: 500;
+      }
+
+      .modal-close {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid var(--border-subtle);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text-secondary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--transition-fast);
+        flex-shrink: 0;
+      }
+
+      .modal-close:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-primary);
+        border-color: var(--border-accent);
+      }
+
+      .modal-body {
+        padding: 0 40px 40px;
+      }
+
+      .modal-status-bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 20px 0 28px;
+        padding: 14px 20px;
+        background: rgba(251, 191, 36, 0.04);
+        border: 1px solid rgba(251, 191, 36, 0.12);
+        border-radius: var(--radius-sm);
+      }
+
+      .modal-status-bar .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent-amber);
+        animation: statusPulse 2.5s ease-in-out infinite;
+      }
+
+      .modal-status-bar span {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--accent-amber);
+      }
+
+      .modal-section {
+        margin-bottom: 28px;
+      }
+
+      .modal-section-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        color: var(--text-primary);
+        margin-bottom: 12px;
+        letter-spacing: -0.3px;
+      }
+
+      .modal-section p {
+        color: var(--text-secondary);
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
+      .modal-features {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .modal-feature {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 18px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        color: var(--text-primary);
+        font-weight: 500;
+        transition: all var(--transition-fast);
+      }
+
+      .modal-feature:hover {
+        background: rgba(139, 92, 246, 0.04);
+        border-color: var(--border-accent);
+      }
+
+      .modal-feature-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        background: rgba(139, 92, 246, 0.08);
+        flex-shrink: 0;
+      }
+
+      .modal-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 4px;
+      }
+
+      .modal-note {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px 20px;
+        background: rgba(139, 92, 246, 0.04);
+        border: 1px solid rgba(139, 92, 246, 0.12);
+        border-radius: var(--radius-sm);
+        margin-top: 28px;
+      }
+
+      .modal-note-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      .modal-note p {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      /* ===== CONTACT SECTION ===== */
+      .contact {
+        text-align: center;
+      }
+
+      .contact .section-heading {
+        font-size: clamp(32px, 5vw, 52px);
+        letter-spacing: -2px;
+      }
+
+      .contact-sub {
+        color: var(--text-secondary);
+        font-size: 17px;
+        margin-bottom: 48px;
+        font-weight: 400;
+      }
+
+      .contact-cards {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .contact-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 32px 36px;
+        text-align: left;
+        text-decoration: none;
+        color: var(--text-primary);
+        min-width: 240px;
+        transition: all var(--transition-smooth);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contact-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--gradient-card);
+        opacity: 0;
+        transition: opacity var(--transition-smooth);
+      }
+
+      .contact-card:hover {
+        border-color: var(--border-accent);
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-glow);
+      }
+
+      .contact-card:hover::before {
+        opacity: 1;
+      }
+
+      .contact-card > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .contact-card-icon {
+        font-size: 28px;
+        margin-bottom: 16px;
+      }
+
+      .contact-card-label {
+        font-size: 12px;
+        color: var(--text-muted);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+
+      .contact-card-value {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--accent-violet-light);
+      }
+
+      /* ===== FOOTER ===== */
+      footer {
+        padding: 32px 48px;
+        border-top: 1px solid var(--border-subtle);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--text-muted);
+        font-size: 13px;
+        flex-wrap: wrap;
+        gap: 12px;
+        position: relative;
+        z-index: 1;
+      }
+
+      footer .footer-brand {
+        font-weight: 600;
+        color: var(--text-secondary);
+      }
+
+      /* ===== SCROLL REVEAL ANIMATIONS ===== */
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 768px) {
         nav {
-          padding: 16px 24px;
+          padding: 0 24px;
         }
+
         .nav-links {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(10, 10, 15, 0.97);
+          backdrop-filter: blur(24px);
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 24px;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+          z-index: 999;
+        }
+
+        .nav-links.mobile-open {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .nav-links a {
+          font-size: 20px;
+          padding: 12px 24px;
+        }
+
+        .nav-status {
           display: none;
         }
+
+        .nav-hamburger {
+          display: flex;
+        }
+
         .hero {
-          flex-direction: column;
+          flex-direction: column-reverse;
           padding: 100px 24px 60px;
+          gap: 40px;
+          text-align: center;
         }
-        .hero-avatar {
-          margin-left: 0;
-          margin-top: 40px;
-          width: 120px;
-          height: 120px;
-          font-size: 42px;
+
+        .hero-content {
+          max-width: 100%;
         }
-        .about,
-        .contact {
-          padding: 60px 24px;
+
+        .hero-description {
+          max-width: 100%;
         }
-        .apps {
-          padding: 60px 24px;
+
+        .hero-cta {
+          justify-content: center;
         }
+
+        .hero-badge {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .hero-photo {
+          width: 180px;
+          height: 180px;
+        }
+
+        .section {
+          padding: 70px 24px;
+        }
+
         .about-grid {
           grid-template-columns: 1fr;
         }
-        .app-card {
+
+        .projects-inner {
+          padding: 70px 24px;
+        }
+
+        .projects-grid {
           grid-template-columns: 1fr;
         }
-        .divider {
-          margin: 0 24px;
+
+        .project-card {
+          padding: 28px;
         }
+
+        .project-card.featured {
+          grid-template-columns: 1fr;
+        }
+
+        .project-stat-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .modal-stat-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .modal {
+          max-height: 90vh;
+          border-radius: var(--radius-lg);
+          margin: 12px;
+        }
+
+        .modal-header {
+          padding: 28px 24px 0;
+        }
+
+        .modal-body {
+          padding: 0 24px 28px;
+        }
+
+        .modal-features {
+          grid-template-columns: 1fr;
+        }
+
+        .contact-cards {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .contact-card {
+          width: 100%;
+          max-width: 320px;
+        }
+
         footer {
           padding: 24px;
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .section-heading {
+          font-size: clamp(26px, 6vw, 36px);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-title {
+          font-size: 36px;
+          letter-spacing: -1.5px;
+        }
+
+        .hero-subtitle {
+          font-size: 18px;
+        }
+
+        .hero-photo {
+          width: 150px;
+          height: 150px;
+        }
+
+        .project-card-header {
+          flex-direction: column;
+          gap: 14px;
+        }
+
+        .modal-header-left {
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .project-stat-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
+        }
+
+        .modal-stat-grid {
+          grid-template-columns: 1fr;
+          gap: 8px;
         }
       }
     </style>
   </head>
   <body>
-    <nav>
-      <div class="nav-name">Kerem Bilginer</div>
-      <div class="nav-links">
-        <a href="#hakkimda">Hakkımda</a>
-        <a href="#uygulamalar">Uygulamalar & Projeler</a>
-        <a href="#iletisim">İletişim</a>
+    <!-- Background effects -->
+    <div class="bg-noise"></div>
+    <div class="bg-gradient-orb orb-1"></div>
+    <div class="bg-gradient-orb orb-2"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+      <a href="#" class="nav-logo">blgnr1<span>.</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="#hakkimda" onclick="closeMobileMenu()">Hakkımda</a>
+        <a href="#projeler" onclick="closeMobileMenu()">Projeler</a>
+        <a href="#iletisim" onclick="closeMobileMenu()">İletişim</a>
       </div>
-      <div class="nav-badge">
-        <span class="nav-badge-dot"></span>
+      <div class="nav-status">
+        <span class="nav-status-dot"></span>
         Software Engineer
       </div>
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menü">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </nav>
 
-    <div class="hero">
-      <div class="hero-left">
-        <div class="hero-eyebrow">Istanbul, Turkey</div>
-        <h1>Kerem<br />Bilginer</h1>
-        <div class="hero-role">AI & Mobile Geliştirici</div>
-        <p class="hero-desc">
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+          Istanbul, Turkey
+        </div>
+        <h1 class="hero-title">
+          Kerem<br />
+          <span class="gradient-text">Bilginer</span>
+        </h1>
+        <div class="hero-subtitle">AI & Mobile Geliştirici</div>
+        <p class="hero-description">
           Yazılım mühendisliği öğrencisi ve bağımsız geliştirici. Sadece
           arayüzler değil; yapay zeka, veri bilimi ve makine öğrenimi ile
           desteklenmiş, uçtan uca akıllı mobil uygulamalar ve mimariler inşa
           ediyorum.
         </p>
-        <div class="hero-links">
-          <a href="https://github.com/blgnr1" target="_blank" class="link-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"
-              />
+        <div class="hero-cta">
+          <a href="https://github.com/blgnr1" target="_blank" class="btn btn-secondary" id="hero-github-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
             </svg>
             GitHub
           </a>
-          <a href="mailto:kerem1096@outlook.com" class="link-btn primary">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-              />
-              <polyline points="22,6 12,12 2,6" />
+          <a href="mailto:kerem1096@outlook.com" class="btn btn-primary" id="hero-contact-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,12 2,6"/>
             </svg>
             İletişim
           </a>
         </div>
       </div>
-      <div class="hero-avatar">KB</div>
-    </div>
+      <div class="hero-photo-wrapper">
+        <div class="hero-photo-ring"></div>
+        <img
+          src="images/WhatsApp Image 2026-04-02 at 21.26.21.jpeg"
+          alt="Kerem Bilginer profil fotoğrafı"
+          class="hero-photo"
+          loading="eager"
+        />
+      </div>
+    </section>
 
-    <div class="divider"></div>
+    <div class="section-divider"></div>
 
-    <section class="about" id="hakkimda">
-      <div class="section-eyebrow">Hakkımda</div>
-      <h2 class="section-title">Developer & Builder</h2>
-      <p
-        style="
-          color: var(--muted);
-          font-size: 16px;
-          max-width: 600px;
-          line-height: 1.75;
-          font-weight: 300;
-        "
-      >
-        Yazılım mimarisinden, makine öğrenimi modellerinin mobil cihazlarda
-        çalıştırılmasına kadar geniş bir yelpazede projeler geliştiriyorum. Odak
-        noktam, kullanıcı davranışlarını analiz eden algoritmaları temiz bir
-        arayüzle birleştirerek günlük hayatta karşılığı olan ürünler inşa etmek.
-      </p>
+    <!-- About Section -->
+    <section class="section about" id="hakkimda">
+      <div class="reveal">
+        <div class="section-label">Hakkımda</div>
+        <h2 class="section-heading">Developer & Builder</h2>
+        <p class="section-description">
+          Yazılım mimarisinden, makine öğrenimi modellerinin mobil cihazlarda
+          çalıştırılmasına kadar geniş bir yelpazede projeler geliştiriyorum. Odak
+          noktam, kullanıcı davranışlarını analiz eden algoritmaları temiz bir
+          arayüzle birleştirerek günlük hayatta karşılığı olan ürünler inşa etmek.
+        </p>
+      </div>
 
-      <div class="about-grid">
-        <div class="info-block">
-          <div class="info-label">Konum</div>
-          <div class="info-value">Istanbul, Turkey 🇹🇷</div>
+      <div class="about-grid reveal">
+        <div class="info-card">
+          <div class="info-card-label">Konum</div>
+          <div class="info-card-value">Istanbul, Turkey 🇹🇷</div>
         </div>
-        <div class="info-block">
-          <div class="info-label">E-posta</div>
-          <div class="info-value">
+        <div class="info-card">
+          <div class="info-card-label">E-posta</div>
+          <div class="info-card-value">
             <a href="mailto:kerem1096@outlook.com">kerem1096@outlook.com</a>
           </div>
         </div>
-        <div class="info-block">
-          <div class="info-label">GitHub</div>
-          <div class="info-value">
-            <a href="https://github.com/blgnr1" target="_blank"
-              >github.com/blgnr1</a
-            >
+        <div class="info-card">
+          <div class="info-card-label">GitHub</div>
+          <div class="info-card-value">
+            <a href="https://github.com/blgnr1" target="_blank">github.com/blgnr1</a>
           </div>
         </div>
-        <div class="info-block">
-          <div class="info-label">Durum</div>
-          <div
-            class="info-value"
-            style="display: flex; align-items: center; gap: 8px"
-          >
-            <span
-              style="
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background: #4ade80;
-                display: inline-block;
-              "
-            ></span>
-            Open to collaborations
+        <div class="info-card">
+          <div class="info-card-label">Durum</div>
+          <div class="info-card-value">
+            <span class="status-indicator">
+              <span class="status-dot-inline"></span>
+              Open to collaborations
+            </span>
           </div>
         </div>
       </div>
 
-      <div class="skills-wrap">
-        <div class="section-eyebrow" style="margin-top: 0">
-          Teknolojiler & Yetkinlikler
-        </div>
+      <div class="skills-section reveal">
+        <div class="section-label">Teknolojiler & Yetkinlikler</div>
         <div class="skills-grid">
-          <span class="skill-tag highlight">Flutter</span>
-          <span class="skill-tag highlight">Dart</span>
-          <span class="skill-tag highlight">Python</span>
-          <span class="skill-tag ai">PyTorch</span>
-          <span class="skill-tag ai">Pandas / NumPy</span>
-          <span class="skill-tag ai">Scikit-learn</span>
-          <span class="skill-tag ai">TFLite & ONNX</span>
-          <span class="skill-tag">Machine Learning</span>
-          <span class="skill-tag">Data Analysis</span>
-          <span class="skill-tag">Riverpod</span>
-          <span class="skill-tag">SQLite</span>
-          <span class="skill-tag">Algorithm Design</span>
+          <span class="skill-chip primary">Flutter</span>
+          <span class="skill-chip primary">Dart</span>
+          <span class="skill-chip primary">Python</span>
+          <span class="skill-chip ai">PyTorch</span>
+          <span class="skill-chip ai">Pandas / NumPy</span>
+          <span class="skill-chip ai">Scikit-learn</span>
+          <span class="skill-chip ai">TFLite & ONNX</span>
+          <span class="skill-chip">Machine Learning</span>
+          <span class="skill-chip">Data Analysis</span>
+          <span class="skill-chip">Riverpod</span>
+          <span class="skill-chip">SQLite</span>
+          <span class="skill-chip">Algorithm Design</span>
         </div>
       </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="section-divider"></div>
 
-    <section class="apps" id="uygulamalar">
-      <div class="apps-inner">
-        <div class="section-eyebrow">Uygulamalar & Projeler</div>
-        <h2 class="section-title">Neler İnşa Ettim?</h2>
+    <!-- Projects Section -->
+    <section class="projects-section" id="projeler">
+      <div class="projects-inner">
+        <div class="reveal">
+          <div class="section-label">Projeler</div>
+          <h2 class="section-heading">Neler İnşa Ettim?</h2>
+          <p class="section-description">
+            Her proje, gerçek bir ihtiyaca çözüm üretmek amacıyla sıfırdan tasarlandı.
+          </p>
+        </div>
 
-        <div class="app-card">
-          <div class="app-icon-wrap">💬</div>
-          <div>
-            <div class="status-badge">
-              <span class="status-dot"></span> App Store'da
-            </div>
-            <div class="app-name">ScrollChat</div>
-            <div class="app-tagline">
-              WhatsApp Chat Analysis & Persona Engine
-            </div>
-            <p class="app-desc">
-              ScrollChat, WhatsApp sohbet çıktılarını tamamen cihaz üzerinde
-              (on-device) analiz ederek kişilik profilleri, davranışsal
-              içgörüler ve rozetler oluşturur. Özel bir NLP pipeline'ı ve KNN
-              tabanlı bir sınıflandırma motoru ile geliştirildi.
-            </p>
-            <div class="app-tags">
-              <span class="app-tag">Flutter</span>
-              <span class="app-tag">Python</span>
-              <span class="app-tag">On-device NLP</span>
-              <span class="app-tag">Riverpod</span>
-            </div>
-            <div class="app-stats">
-              <div>
-                <div class="app-stat-val">25+</div>
-                <div class="app-stat-lbl">Persona Types</div>
+        <div class="projects-grid reveal">
+          <!-- ScrollChat Featured Card -->
+          <div class="project-card featured" id="card-scrollchat" onclick="openModal('scrollchat')">
+            <div class="project-card-header">
+              <div style="display:flex;align-items:center;gap:16px">
+                <div class="project-icon scrollchat">💬</div>
+                <div class="featured-label">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+                  Ana Proje
+                </div>
               </div>
-              <div>
-                <div class="app-stat-val">110K</div>
-                <div class="app-stat-lbl">Messages / 33s</div>
+              <div class="project-status wip">
+                <span class="dot"></span>
+                Yapım Aşamasında
               </div>
-              <div>
-                <div class="app-stat-val">100%</div>
-                <div class="app-stat-lbl">Local Processing</div>
+            </div>
+            <div class="project-card-left">
+              <div class="project-card-name">ScrollChat</div>
+              <div class="project-card-tagline">WhatsApp Chat Analysis & Persona Engine</div>
+              <p class="project-card-desc">
+                WhatsApp sohbet çıktılarını tamamen cihaz üzerinde analiz ederek kişilik profilleri,
+                davranışsal içgörüler ve rozetler oluşturan yüksek performanslı bir analiz motoru.
+                KNN tabanlı persona sınıflandırma ve özel NLP hattı ile desteklenmektedir.
+              </p>
+              <div class="project-card-tags">
+                <span class="project-tag">Flutter</span>
+                <span class="project-tag">Dart Isolates</span>
+                <span class="project-tag">On-device NLP</span>
+                <span class="project-tag">KNN</span>
+              </div>
+            </div>
+            <div class="project-card-right">
+              <div class="project-stat-grid">
+                <div class="project-stat-item">
+                  <div class="project-stat-value">~3K</div>
+                  <div class="project-stat-label">Mesaj / Saniye</div>
+                </div>
+                <div class="project-stat-item">
+                  <div class="project-stat-value">25</div>
+                  <div class="project-stat-label">Karakter Rolü</div>
+                </div>
+                <div class="project-stat-item">
+                  <div class="project-stat-value">15</div>
+                  <div class="project-stat-label">Rozet Sistemi</div>
+                </div>
+                <div class="project-stat-item">
+                  <div class="project-stat-value">100%</div>
+                  <div class="project-stat-label">On-Device</div>
+                </div>
+              </div>
+            </div>
+            <div class="project-card-footer">
+              <div class="project-card-cta">
+                Detayları Gör
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="app-card">
-          <div class="app-icon-wrap">🧠</div>
-          <div>
-            <div class="status-badge dev">
-              <span class="status-dot"></span> Geliştirme Aşamasında
+          <!-- FruiTrack Card -->
+          <div class="project-card" id="card-fruitrack" onclick="openModal('fruitrack')">
+            <div class="project-card-header">
+              <div class="project-icon fruitrack">🍎</div>
+              <div class="project-status completed">
+                <span class="dot"></span>
+                Tamamlandı
+              </div>
             </div>
-            <div class="app-name">OwnWord</div>
-            <div class="app-tagline">Gamified Vocabulary Learning</div>
-            <p class="app-desc">
-              Kullanıcıların kendi kelime dağarcıklarını oluşturmalarını
-              sağlayan, özel bilgi tutma (retention) mantığına ve interaktif
-              flashcard tasarımlarına sahip oyunlaştırılmış İngilizce öğrenme
-              uygulaması.
+            <div class="project-card-name">FruiTrack</div>
+            <div class="project-card-tagline">Manav Yönetim & Stok Takip Uygulaması</div>
+            <p class="project-card-desc">
+              Manavlar için geliştirilmiş, alım-satım kayıtlarından depo yönetimine
+              kadar tüm operasyonları dijitalleştiren kapsamlı bir uygulama.
             </p>
-            <div class="app-tags">
-              <span class="app-tag">Flutter</span>
-              <span class="app-tag">UI/UX Design</span>
-              <span class="app-tag">Gamification</span>
-              <span class="app-tag">Algorithm Design</span>
+            <div class="project-card-tags">
+              <span class="project-tag">Flutter</span>
+              <span class="project-tag">SQLite</span>
+              <span class="project-tag">Riverpod</span>
+            </div>
+            <div class="project-card-footer">
+              <div class="project-card-cta">
+                Detayları Gör
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="app-card">
-          <div class="app-icon-wrap">💳</div>
-          <div>
-            <div class="status-badge dev">
-              <span class="status-dot"></span> Geliştirme Aşamasında
+          <!-- OwnWord Card -->
+          <div class="project-card" id="card-ownword" onclick="openModal('ownword')">
+            <div class="project-card-header">
+              <div class="project-icon ownword">📖</div>
+              <div class="project-status completed">
+                <span class="dot"></span>
+                Tamamlandı
+              </div>
             </div>
-            <div class="app-name">Fi-Foll</div>
-            <div class="app-tagline">Personal Finance & Debt Tracker</div>
-            <p class="app-desc">
-              Kişisel borçları ve bakiyeleri yönetmek için geliştirilmiş cüzdan
-              stili (wallet-style) finansal takip uygulaması. Kullanıcı dostu
-              arayüzü ile günlük finansal durum analizini kolaylaştırır.
+            <div class="project-card-name">OwnWord</div>
+            <div class="project-card-tagline">Gamified Vocabulary Learning</div>
+            <p class="project-card-desc">
+              Kişisel kelime öğrenimini optimize etmeye yönelik, etkileşimli flashcard
+              sistemi ve bilgi tutma algoritması ile desteklenen interaktif öğrenme uygulaması.
             </p>
-            <div class="app-tags">
-              <span class="app-tag">Flutter</span>
-              <span class="app-tag">State Management</span>
-              <span class="app-tag">Local Storage</span>
+            <div class="project-card-tags">
+              <span class="project-tag">Flutter</span>
+              <span class="project-tag">UI/UX Design</span>
+              <span class="project-tag">Gamification</span>
+            </div>
+            <div class="project-card-footer">
+              <div class="project-card-cta">
+                Detayları Gör
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="app-card">
-          <div class="app-icon-wrap">🍎</div>
-          <div>
-            <div class="status-badge">
-              <span class="status-dot"></span> Tamamlandı
+          <!-- Fi-Foll Card -->
+          <div class="project-card" id="card-fifoll" onclick="openModal('fifoll')">
+            <div class="project-card-header">
+              <div class="project-icon fifoll">💳</div>
+              <div class="project-status completed">
+                <span class="dot"></span>
+                Tamamlandı
+              </div>
             </div>
-            <div class="app-name">Fruit Recognition AI</div>
-            <div class="app-tagline">PyTorch to TFLite Mobile Integration</div>
-            <p class="app-desc">
-              PyTorch kullanılarak eğitilmiş bir bilgisayarlı görü (computer
-              vision) modelinin, mobil cihazlarda gerçek zamanlı meyve
-              tanıyabilmesi için TFLite formatına dönüştürülüp Flutter
-              uygulamasına entegre edildiği proje.
+            <div class="project-card-name">Fi-Foll</div>
+            <div class="project-card-tagline">Personal Finance & Debt Tracker</div>
+            <p class="project-card-desc">
+              Kişisel borçları ve paylaşılan masrafları basit şekilde takip etmeye
+              yönelik, minimum karmaşıklık ve maksimum kullanılabilirlik odaklı finans uygulaması.
             </p>
-            <div class="app-tags">
-              <span class="app-tag">PyTorch</span>
-              <span class="app-tag">TFLite</span>
-              <span class="app-tag">Computer Vision</span>
-              <span class="app-tag">Flutter Integrations</span>
+            <div class="project-card-tags">
+              <span class="project-tag">Flutter</span>
+              <span class="project-tag">REST API</span>
+              <span class="project-tag">Local Storage</span>
+            </div>
+            <div class="project-card-footer">
+              <div class="project-card-cta">
+                Detayları Gör
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fruit Recognition AI Card -->
+          <div class="project-card" id="card-fruitai" onclick="openModal('fruitai')">
+            <div class="project-card-header">
+              <div class="project-icon fruitai">🧠</div>
+              <div class="project-status completed">
+                <span class="dot"></span>
+                Tamamlandı
+              </div>
+            </div>
+            <div class="project-card-name">Fruit Recognition AI</div>
+            <div class="project-card-tagline">PyTorch to TFLite Mobile Integration</div>
+            <p class="project-card-desc">
+              PyTorch ile eğitilmiş bir bilgisayarlı görü modelinin TFLite'a dönüştürülerek
+              mobil cihazda gerçek zamanlı meyve tanıma yapabilmesini sağlayan teknik bir proje.
+            </p>
+            <div class="project-card-tags">
+              <span class="project-tag">PyTorch</span>
+              <span class="project-tag">TFLite</span>
+              <span class="project-tag">Computer Vision</span>
+            </div>
+            <div class="project-card-footer">
+              <div class="project-card-cta">
+                Detayları Gör
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="section-divider"></div>
 
-    <section class="contact" id="iletisim">
-      <h2 class="contact-title">İletişime Geç</h2>
-      <p class="contact-sub">
-        Proje, staj, iş birliği veya kahve sohbeti için.
-      </p>
-      <div class="contact-links">
-        <a href="mailto:kerem1096@outlook.com" class="contact-card">
-          <div class="contact-card-icon">✉️</div>
-          <div class="contact-card-label">E-posta</div>
-          <div class="contact-card-value">kerem1096@outlook.com</div>
-        </a>
-        <a
-          href="https://github.com/blgnr1"
-          target="_blank"
-          class="contact-card"
-        >
-          <div class="contact-card-icon">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="var(--accent2)"
-            >
-              <path
-                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"
-              />
-            </svg>
-          </div>
-          <div class="contact-card-label">GitHub</div>
-          <div class="contact-card-value">github.com/blgnr1</div>
-        </a>
+    <!-- Contact Section -->
+    <section class="section contact" id="iletisim">
+      <div class="reveal">
+        <div class="section-label" style="justify-content: center;">İletişim</div>
+        <h2 class="section-heading">İletişime Geç</h2>
+        <p class="contact-sub">
+          Proje, staj, iş birliği veya kahve sohbeti için.
+        </p>
+        <div class="contact-cards">
+          <a href="mailto:kerem1096@outlook.com" class="contact-card" id="contact-email">
+            <div class="contact-card-icon">✉️</div>
+            <div class="contact-card-label">E-posta</div>
+            <div class="contact-card-value">kerem1096@outlook.com</div>
+          </a>
+          <a href="https://github.com/blgnr1" target="_blank" class="contact-card" id="contact-github">
+            <div class="contact-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--accent-violet-light)">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+            </div>
+            <div class="contact-card-label">GitHub</div>
+            <div class="contact-card-value">github.com/blgnr1</div>
+          </a>
+        </div>
       </div>
     </section>
 
+    <!-- Footer -->
     <footer>
-      <span>Kerem Bilginer — Istanbul, Turkey</span>
+      <span class="footer-brand">Kerem Bilginer</span>
       <span>Software Engineer & AI/Mobile Developer</span>
-      <span style="color: var(--subtle)">kerem1096@outlook.com</span>
+      <span>Istanbul, Turkey</span>
     </footer>
+
+    <!-- ScrollChat Modal -->
+    <div class="modal-overlay" id="modal-scrollchat" onclick="closeModalOnOverlay(event, 'scrollchat')">
+      <div class="modal" role="dialog" aria-labelledby="scrollchat-title">
+        <div class="modal-header">
+          <div class="modal-header-left">
+            <div class="modal-icon scrollchat" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(99, 102, 241, 0.06)); border: 1px solid rgba(139, 92, 246, 0.2);">💬</div>
+            <div class="modal-header-info">
+              <h3 id="scrollchat-title">ScrollChat</h3>
+              <div class="modal-tagline">WhatsApp Chat Analysis & Persona Engine</div>
+            </div>
+          </div>
+          <button class="modal-close" onclick="closeModal('scrollchat')" aria-label="Kapat">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-status-bar">
+            <span class="dot"></span>
+            <span>Yapım Aşamasında — Yayınlanması planlanan ana odaklı proje</span>
+          </div>
+
+          <div class="modal-stat-grid">
+            <div class="modal-stat">
+              <div class="modal-stat-value">~3K</div>
+              <div class="modal-stat-label">Mesaj / Saniye</div>
+            </div>
+            <div class="modal-stat">
+              <div class="modal-stat-value">25</div>
+              <div class="modal-stat-label">Karakter Rolü</div>
+            </div>
+            <div class="modal-stat">
+              <div class="modal-stat-value">15</div>
+              <div class="modal-stat-label">Rozet Türü</div>
+            </div>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Proje Hakkında</div>
+            <p>
+              ScrollChat, yayınlanması planlanan ana odaklı ve en büyük projedir. WhatsApp
+              sohbet çıktılarını tamamen cihaz üzerinde (on-device) analiz ederek kişilik
+              profilleri, davranışsal içgörüler ve rozetler oluşturan gelişmiş bir analiz
+              motorudur. Hiçbir kullanıcı verisi dışarıya aktarılmaz.
+            </p>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Teknik Altyapı</div>
+            <p>
+              Flutter kullanılarak geliştirilmiştir ve Dart Isolates mimarisi sayesinde
+              ağır veri işleme süreçleri kullanıcı arayüzünü etkilemeden arka planda
+              çalışır. Saniyede yaklaşık 2800–3000 mesaj analiz edebilen yüksek
+              performanslı bir sistemdir.
+            </p>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Zeka Katmanı</div>
+            <div class="modal-features">
+              <div class="modal-feature">
+                <div class="modal-feature-icon">🎯</div>
+                KNN Persona Motoru
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">🔬</div>
+                Özel NLP Pipeline
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">👤</div>
+                25 Dijital Karakter Rolü
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">🏅</div>
+                15 Farklı Rozet Sistemi
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Teknolojiler</div>
+            <div class="modal-tags">
+              <span class="project-tag">Flutter</span>
+              <span class="project-tag">Dart Isolates</span>
+              <span class="project-tag">On-device NLP</span>
+              <span class="project-tag">KNN</span>
+              <span class="project-tag">Riverpod</span>
+              <span class="project-tag">Machine Learning</span>
+            </div>
+          </div>
+
+          <div class="modal-note">
+            <span class="modal-note-icon">🚀</span>
+            <p>
+              ScrollChat, aktif olarak geliştirilmeye devam etmektedir ve yayınlanması
+              planlanan en büyük projedir.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FruiTrack Modal -->
+    <div class="modal-overlay" id="modal-fruitrack" onclick="closeModalOnOverlay(event, 'fruitrack')">
+      <div class="modal" role="dialog" aria-labelledby="fruitrack-title">
+        <div class="modal-header">
+          <div class="modal-header-left">
+            <div class="modal-icon fruitrack" style="background: linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(16, 185, 129, 0.06)); border: 1px solid rgba(52, 211, 153, 0.2);">🍎</div>
+            <div class="modal-header-info">
+              <h3 id="fruitrack-title">FruiTrack</h3>
+              <div class="modal-tagline">Manav Yönetim & Stok Takip Uygulaması</div>
+            </div>
+          </div>
+          <button class="modal-close" onclick="closeModal('fruitrack')" aria-label="Kapat">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-status-bar completed">
+            <span class="dot"></span>
+            <span>Tamamlandı — Henüz yayınlanmadı</span>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Proje Hakkında</div>
+            <p>
+              FruiTrack, manavlar için geliştirilmiş kapsamlı bir yönetim uygulamasıdır.
+              Kullanıcı, alım ve satım işlemlerini manuel olarak girerek tüm ticari
+              operasyonlarını dijital bir ortamda takip edebilir. Uygulama, günlük iş
+              akışlarını kolaylaştırmak ve veri odaklı kararlar almayı desteklemek
+              amacıyla tasarlanmıştır.
+            </p>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Öne Çıkan Özellikler</div>
+            <div class="modal-features">
+              <div class="modal-feature">
+                <div class="modal-feature-icon">📦</div>
+                Depo Yönetimi
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">📊</div>
+                Stok Kontrolü
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">💰</div>
+                Satış Takibi
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">📈</div>
+                Grafik & Analizler
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Teknolojiler</div>
+            <div class="modal-tags">
+              <span class="project-tag">Flutter</span>
+              <span class="project-tag">Dart</span>
+              <span class="project-tag">SQLite</span>
+              <span class="project-tag">Riverpod</span>
+              <span class="project-tag">Local Storage</span>
+            </div>
+          </div>
+
+          <div class="modal-note">
+            <span class="modal-note-icon">ℹ️</span>
+            <p>
+              Bu uygulama tamamlanmış olup tüm temel özellikleri çalışır durumdadır.
+              Ancak henüz uygulama mağazalarında yayınlanmamıştır.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OwnWord Modal -->
+    <div class="modal-overlay" id="modal-ownword" onclick="closeModalOnOverlay(event, 'ownword')">
+      <div class="modal" role="dialog" aria-labelledby="ownword-title">
+        <div class="modal-header">
+          <div class="modal-header-left">
+            <div class="modal-icon ownword" style="background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(59, 130, 246, 0.06)); border: 1px solid rgba(56, 189, 248, 0.2);">📖</div>
+            <div class="modal-header-info">
+              <h3 id="ownword-title">OwnWord</h3>
+              <div class="modal-tagline">Gamified Vocabulary Learning</div>
+            </div>
+          </div>
+          <button class="modal-close" onclick="closeModal('ownword')" aria-label="Kapat">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-status-bar completed">
+            <span class="dot"></span>
+            <span>Tamamlandı — Henüz yayınlanmadı</span>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Proje Hakkında</div>
+            <p>
+              OwnWord, kişisel kelime öğrenimini optimize etmeye yönelik interaktif bir
+              öğrenme uygulamasıdır. Kullanıcılar kendi kelime listelerini oluşturur ve
+              bu kelimeler, etkileşimli dijital flashcard'lar şeklinde sunulur.
+            </p>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Bilgi Tutma Algoritması</div>
+            <p>
+              Her kelimenin öğrenilme durumu takip edilir. Bir kelimenin "pekiştirilmiş"
+              olarak işaretlenmesi için 5 kez hatasız doğru cevaplanması gerekir. Bu
+              sistem, kalıcı öğrenmeyi garanti altına alır.
+            </p>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">İnteraktif Test Mekanizmaları</div>
+            <div class="modal-features">
+              <div class="modal-feature">
+                <div class="modal-feature-icon">💡</div>
+                Anlamdan Çıkarım
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">🔊</div>
+                Sesli Dinleme
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">✍️</div>
+                Doğru Yazım Egzersizleri
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">🔄</div>
+                Hata Odaklı Tekrar
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Teknolojiler</div>
+            <div class="modal-tags">
+              <span class="project-tag">Flutter</span>
+              <span class="project-tag">Dart</span>
+              <span class="project-tag">UI/UX Design</span>
+              <span class="project-tag">Gamification</span>
+              <span class="project-tag">Algorithm Design</span>
+            </div>
+          </div>
+
+          <div class="modal-note">
+            <span class="modal-note-icon">🔔</span>
+            <p>
+              Doğru ve yanlış cevaplara göre tetiklenen ses efektleri ile öğrenme
+              süreci desteklenir. Uygulama tamamlanmış olup henüz yayınlanmamıştır.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fi-Foll Modal -->
+    <div class="modal-overlay" id="modal-fifoll" onclick="closeModalOnOverlay(event, 'fifoll')">
+      <div class="modal" role="dialog" aria-labelledby="fifoll-title">
+        <div class="modal-header">
+          <div class="modal-header-left">
+            <div class="modal-icon fifoll" style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.06)); border: 1px solid rgba(251, 191, 36, 0.2);">💳</div>
+            <div class="modal-header-info">
+              <h3 id="fifoll-title">Fi-Foll</h3>
+              <div class="modal-tagline">Personal Finance & Debt Tracker</div>
+            </div>
+          </div>
+          <button class="modal-close" onclick="closeModal('fifoll')" aria-label="Kapat">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-status-bar completed">
+            <span class="dot"></span>
+            <span>Tamamlandı — Henüz yayınlanmadı</span>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Proje Hakkında</div>
+            <p>
+              Fi-Foll, finansal takibi sadeleştirmeyi amaçlayan bir borç ve bakiye
+              yönetim uygulamasıdır. Kişisel borçları ve paylaşılan masrafları basit
+              şekilde takip etmek için tasarlanmıştır. Minimum karmaşıklık, maksimum
+              kullanılabilirlik prensibiyle geliştirilmiştir.
+            </p>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Öne Çıkan Özellikler</div>
+            <div class="modal-features">
+              <div class="modal-feature">
+                <div class="modal-feature-icon">💸</div>
+                Alacak / Verecek Takibi
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">🎨</div>
+                Basit & Anlaşılır Arayüz
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">💱</div>
+                Güncel Döviz Kurları
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">🔗</div>
+                Ücretsiz API Entegrasyonu
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Teknolojiler</div>
+            <div class="modal-tags">
+              <span class="project-tag">Flutter</span>
+              <span class="project-tag">Dart</span>
+              <span class="project-tag">REST API</span>
+              <span class="project-tag">State Management</span>
+              <span class="project-tag">Local Storage</span>
+            </div>
+          </div>
+
+          <div class="modal-note">
+            <span class="modal-note-icon">ℹ️</span>
+            <p>
+              Uygulama tamamlanmış olup tüm temel özellikleri çalışır durumdadır.
+              Henüz uygulama mağazalarında yayınlanmamıştır.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fruit Recognition AI Modal -->
+    <div class="modal-overlay" id="modal-fruitai" onclick="closeModalOnOverlay(event, 'fruitai')">
+      <div class="modal" role="dialog" aria-labelledby="fruitai-title">
+        <div class="modal-header">
+          <div class="modal-header-left">
+            <div class="modal-icon fruitai" style="background: linear-gradient(135deg, rgba(248, 113, 113, 0.15), rgba(239, 68, 68, 0.06)); border: 1px solid rgba(248, 113, 113, 0.2);">🧠</div>
+            <div class="modal-header-info">
+              <h3 id="fruitai-title">Fruit Recognition AI</h3>
+              <div class="modal-tagline">PyTorch to TFLite Mobile Integration</div>
+            </div>
+          </div>
+          <button class="modal-close" onclick="closeModal('fruitai')" aria-label="Kapat">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-status-bar completed">
+            <span class="dot"></span>
+            <span>Tamamlandı — Henüz yayınlanmadı</span>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Proje Hakkında</div>
+            <p>
+              Makine öğrenimi bilgisinin mobil uygulamaya dönüştürüldüğü teknik bir
+              projedir. PyTorch kullanılarak eğitilmiş bir bilgisayarlı görü (computer
+              vision) modeli, mobil cihazlarda gerçek zamanlı meyve tanıyabilmesi için
+              TFLite formatına dönüştürülüp Flutter uygulamasına entegre edilmiştir.
+            </p>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Teknik Süreç</div>
+            <div class="modal-features">
+              <div class="modal-feature">
+                <div class="modal-feature-icon">🔬</div>
+                PyTorch Model Eğitimi
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">🔄</div>
+                TFLite Dönüşümü
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">📱</div>
+                Flutter Entegrasyonu
+              </div>
+              <div class="modal-feature">
+                <div class="modal-feature-icon">📷</div>
+                Gerçek Zamanlı Tanıma
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-section">
+            <div class="modal-section-title">Teknolojiler</div>
+            <div class="modal-tags">
+              <span class="project-tag">PyTorch</span>
+              <span class="project-tag">TFLite</span>
+              <span class="project-tag">Computer Vision</span>
+              <span class="project-tag">Flutter</span>
+              <span class="project-tag">ONNX</span>
+            </div>
+          </div>
+
+          <div class="modal-note">
+            <span class="modal-note-icon">📷</span>
+            <p>
+              Mobil cihaz kamerası üzerinden gerçek zamanlı meyve tanıma yapabilir.
+              Proje tamamlanmış olup henüz yayınlanmamıştır.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      // ===== Navbar scroll effect =====
+      const navbar = document.getElementById("navbar");
+      let lastScroll = 0;
+
+      window.addEventListener("scroll", () => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > 60) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+        lastScroll = currentScroll;
+      });
+
+      // ===== Mobile menu =====
+      function toggleMobileMenu() {
+        const links = document.getElementById("navLinks");
+        const hamburger = document.getElementById("hamburger");
+        links.classList.toggle("mobile-open");
+        hamburger.classList.toggle("active");
+        document.body.style.overflow = links.classList.contains("mobile-open") ? "hidden" : "";
+      }
+
+      function closeMobileMenu() {
+        const links = document.getElementById("navLinks");
+        const hamburger = document.getElementById("hamburger");
+        links.classList.remove("mobile-open");
+        hamburger.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+
+      // ===== Scroll reveal =====
+      const revealElements = document.querySelectorAll(".reveal");
+
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      );
+
+      revealElements.forEach((el) => revealObserver.observe(el));
+
+      // ===== Modal =====
+      function openModal(projectId) {
+        const overlay = document.getElementById(`modal-${projectId}`);
+        if (overlay) {
+          overlay.classList.add("active");
+          document.body.style.overflow = "hidden";
+        }
+      }
+
+      function closeModal(projectId) {
+        const overlay = document.getElementById(`modal-${projectId}`);
+        if (overlay) {
+          overlay.classList.remove("active");
+          document.body.style.overflow = "";
+        }
+      }
+
+      function closeModalOnOverlay(event, projectId) {
+        if (event.target === event.currentTarget) {
+          closeModal(projectId);
+        }
+      }
+
+      // Close modal on Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          document.querySelectorAll(".modal-overlay.active").forEach((overlay) => {
+            overlay.classList.remove("active");
+          });
+          document.body.style.overflow = "";
+        }
+      });
+
+      // ===== Smooth nav link active states =====
+      const sections = document.querySelectorAll("section[id]");
+
+      window.addEventListener("scroll", () => {
+        const scrollY = window.pageYOffset + 200;
+        sections.forEach((section) => {
+          const top = section.offsetTop;
+          const height = section.offsetHeight;
+          const id = section.getAttribute("id");
+          const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+          if (link) {
+            if (scrollY >= top && scrollY < top + height) {
+              link.style.color = "var(--text-primary)";
+              link.style.background = "rgba(255,255,255,0.06)";
+            } else {
+              link.style.color = "";
+              link.style.background = "";
+            }
+          }
+        });
+      });
+    </script>
   </body>
 </html>
