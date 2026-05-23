@@ -1,71 +1,196 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fi-Foll - Gizlilik Politikası</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Google Fonts: Outfit (headings) & Plus Jakarta Sans (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <script>
+      // Apply theme early to prevent flash of dark/light theme
+      (function() {
+        try {
+          const savedTheme = localStorage.getItem('theme') || 'light';
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+
     <style>
       :root {
+        /* Creative Warm Light Theme (Default) */
+        --bg-primary: #fcfbfa;
+        --bg-secondary: #f6f4ef;
+        --text-primary: #1c1b1f;
+        --text-secondary: #56545b;
+        --accent-violet: #6366f1;
+        --accent-violet-light: #7c3aed;
+        --border-subtle: rgba(0, 0, 0, 0.08);
+        --border-accent: rgba(99, 102, 241, 0.2);
+        --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        --radius-sm: 12px;
+      }
+
+      [data-theme="dark"] {
+        /* Sleek Tech Dark Theme */
         --bg-primary: #0a0a0f;
+        --bg-secondary: #0e0e18;
         --text-primary: #f0f0f8;
         --text-secondary: #a0a0c0;
         --accent-violet: #8b5cf6;
         --accent-violet-light: #a78bfa;
         --border-subtle: rgba(255, 255, 255, 0.06);
+        --border-accent: rgba(139, 92, 246, 0.22);
       }
+
       body {
-        font-family: "Inter", sans-serif;
+        font-family: "Plus Jakarta Sans", sans-serif;
         background: var(--bg-primary);
         color: var(--text-primary);
-        line-height: 1.6;
-        padding: 40px 24px;
+        line-height: 1.7;
+        padding: 60px 24px;
         max-width: 800px;
         margin: 0 auto;
+        transition: background-color 0.3s, color 0.3s;
       }
-      h1, h2 {
-        font-family: "Space Grotesk", sans-serif;
+      
+      .content-wrapper {
+        text-align: left;
+        margin-top: 40px;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-subtle);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+      }
+      
+      [data-theme="dark"] .content-wrapper {
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      }
+
+      h1 { 
+        font-family: "Outfit", sans-serif; 
+        font-size: 32px; 
+        font-weight: 800;
+        margin-bottom: 8px; 
         color: var(--text-primary);
+        letter-spacing: -0.5px;
       }
-      h1 { font-size: 36px; margin-bottom: 8px; }
-      h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px; }
-      p, li { color: var(--text-secondary); margin-bottom: 16px; }
-      .date { color: var(--accent-violet-light); font-size: 14px; margin-bottom: 32px; display: block; }
-      a { color: var(--accent-violet-light); text-decoration: none; }
-      a:hover { text-decoration: underline; }
-      .back-btn { display: inline-block; margin-bottom: 32px; padding: 10px 20px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; border: 1px solid var(--border-subtle); color: var(--text-primary); transition: all 0.2s; }
-      .back-btn:hover { background: rgba(255, 255, 255, 0.1); }
+      
+      h2 {
+        font-family: "Outfit", sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--accent-violet-light);
+        margin-top: 36px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid var(--border-subtle);
+        padding-bottom: 8px;
+        letter-spacing: -0.3px;
+      }
+
+      p { 
+        color: var(--text-secondary); 
+        margin-bottom: 16px; 
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      .date {
+        color: var(--text-secondary);
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 32px;
+        display: block;
+        opacity: 0.8;
+      }
+
+      ul {
+        margin-left: 20px;
+        margin-bottom: 24px;
+        color: var(--text-secondary);
+        font-weight: 500;
+        font-size: 15px;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      a { 
+        color: var(--accent-violet-light); 
+        text-decoration: none; 
+        font-weight: 600;
+        transition: color var(--transition-fast);
+      }
+      
+      a:hover { 
+        color: var(--accent-violet);
+        text-decoration: underline; 
+      }
+
+      .back-btn { 
+        display: inline-flex; 
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 32px; 
+        padding: 12px 24px; 
+        background: var(--bg-secondary); 
+        border-radius: 100px; 
+        border: 1px solid var(--border-subtle); 
+        color: var(--text-primary); 
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all var(--transition-fast); 
+        box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+      }
+
+      .back-btn:hover { 
+        background: var(--bg-primary); 
+        border-color: var(--border-accent);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.03);
+      }
     </style>
   </head>
   <body>
     <a href="index.html" class="back-btn">&larr; Ana Sayfaya Dön</a>
-    <h1>Fi-Foll - Gizlilik Politikası</h1>
-    <span class="date">Son Güncelleme: 28 Nisan 2026</span>
+    <div class="content-wrapper">
+      <h1>Fi-Foll - Gizlilik Politikası</h1>
+      <span class="date">Son Güncelleme: 28 Nisan 2026</span>
 
-    <p>Kullanıcılarımızın gizliliğine ve veri güvenliğine büyük önem veriyoruz. Bu politika, uygulamamızı kullandığınızda verilerinizin nasıl işlendiği hakkında sizi bilgilendirmek amacıyla hazırlanmıştır.</p>
+      <p>Kullanıcılarımızın gizliliğine ve veri güvenliğine büyük önem veriyoruz. Bu politika, uygulamamızı kullandığınızda verilerinizin nasıl işlendiği hakkında sizi bilgilendirmek amacıyla hazırlanmıştır.</p>
 
-    <h2>1. Veri Toplama ve Saklama</h2>
-    <p>Fi-Foll, "Privacy by Design" (Tasarım Gereği Gizlilik) ilkesini benimser.</p>
-    <ul>
-      <li><strong>Yerel Depolama:</strong> Uygulama içerisine girdiğiniz tüm finansal veriler, harcamalar, gelirler ve bütçe planlamaları yalnızca sizin cihazınızda saklanır.</li>
-      <li><strong>Sunucu Kaydı Yok:</strong> Verileriniz herhangi bir uzak sunucuya (cloud/server) aktarılmaz, depolanmaz veya işlenmez.</li>
-      <li><strong>Hassas Veriler:</strong> Uygulama; rehberinize, mesajlarınıza, konumunuza veya cihazınızdaki diğer kişisel dosyalara erişim sağlamaz.</li>
-    </ul>
+      <h2>1. Veri Toplama ve Saklama</h2>
+      <p>Fi-Foll, "Privacy by Design" (Tasarım Gereği Gizlilik) ilkesini benimser.</p>
+      <ul>
+        <li><strong>Yerel Depolama:</strong> Uygulama içerisine girdiğiniz tüm finansal veriler, harcamalar, gelirler ve bütçe planlamaları yalnızca sizin cihazınızda saklanır.</li>
+        <li><strong>Sunucu Kaydı Yok:</strong> Verileriniz herhangi bir uzak sunucuya (cloud/server) aktarılmaz, depolanmaz veya işlenmez.</li>
+        <li><strong>Hassas Veriler:</strong> Uygulama; rehberinize, mesajlarınıza, konumunuza veya cihazınızdaki diğer kişisel dosyalara erişim sağlamaz.</li>
+      </ul>
 
-    <h2>2. Üçüncü Taraf Hizmetler</h2>
-    <p>Uygulama, temel işlevlerini yerine getirmek için herhangi bir üçüncü taraf takip kodu (Analytics, Reklam ağları vb.) kullanmamaktadır. Dolayısıyla verileriniz reklam verenlerle veya veri analiz şirketleriyle paylaşılmaz.</p>
+      <h2>2. Üçüncü Taraf Hizmetler</h2>
+      <p>Uygulama, temel işlevlerini yerine getirmek için herhangi bir üçüncü taraf takip kodu (Analytics, Reklam ağları vb.) kullanmamaktadır. Dolayısıyla verileriniz reklam verenlerle veya veri analiz şirketleriyle paylaşılmaz.</p>
 
-    <h2>3. Veri Güvenliği</h2>
-    <p>Verileriniz cihazınızda yerel olarak saklandığı için, bu verilerin güvenliği cihazınızın güvenliği ile doğrudan ilişkilidir. Uygulamayı cihazınızdan sildiğiniz takdirde, uygulama içerisine kaydettiğiniz tüm veriler de kalıcı olarak silinecektir.</p>
+      <h2>3. Veri Güvenliği</h2>
+      <p>Verileriniz cihazınızda yerel olarak saklandığı için, bu verilerin güvenliği cihazınızın güvenliği ile doğrudan ilişkilidir. Uygulamayı cihazınızdan sildiğiniz takdirde, uygulama içerisine kaydettiğiniz tüm veriler de kalıcı olarak silinecektir.</p>
 
-    <h2>4. Çocukların Gizliliği</h2>
-    <p>Uygulamamız 13 yaş altındaki çocukları hedef almamaktadır ve bilerek kişisel veri toplamamaktadır (çünkü hiçbir veri toplamıyoruz).</p>
+      <h2>4. Çocukların Gizliliği</h2>
+      <p>Uygulamamız 13 yaş altındaki çocukları hedef almamaktadır ve bilerek kişisel veri toplamamaktadır (çünkü hiçbir veri toplamıyoruz).</p>
 
-    <h2>5. İletişim</h2>
-    <p>Bu gizlilik politikası ile ilgili herhangi bir sorunuz olursa bizimle iletişime geçebilirsiniz:</p>
-    <ul>
-      <li><strong>E-posta:</strong> <a href="mailto:kerem1096@outlook.com">kerem1096@outlook.com</a></li>
-      <li><strong>Web Sitesi:</strong> <a href="https://www.blgnr1.com/">blgnr1.com</a></li>
-    </ul>
+      <h2>5. İletişim</h2>
+      <p>Bu gizlilik politikası ile ilgili herhangi bir sorunuz olursa bizimle iletişime geçebilirsiniz:</p>
+      <ul>
+        <li><strong>E-posta:</strong> <a href="mailto:kerem1096@outlook.com">kerem1096@outlook.com</a></li>
+        <li><strong>Web Sitesi:</strong> <a href="https://www.blgnr1.com/" target="_blank">blgnr1.com</a></li>
+      </ul>
+    </div>
   </body>
 </html>
